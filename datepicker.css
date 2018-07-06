@@ -1,0 +1,78 @@
+/*Variables*/
+* {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#datepicker {
+  border-radius: 5px;
+  overflow: hidden;
+  max-width: 320px;
+  width: 100%;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+}
+#datepicker .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 300;
+  background-color: #1FAC97;
+  padding: 5px;
+}
+#datepicker .header span, #datepicker .header i {
+  color: #fff;
+  line-height: 30px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+#datepicker .header span:active, #datepicker .header i:active {
+  transform: scale(0.95);
+}
+#datepicker .header span {
+  width: 70%;
+  text-align: center;
+  border-radius: 15px;
+  font-size: 14px;
+}
+#datepicker .header span:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+#datepicker .header i {
+  display: block;
+  line-height: 28px;
+  width: 28px;
+  text-align: center;
+  border-radius: 50%;
+}
+#datepicker .header i:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+#datepicker .body {
+  padding: 10px 15px;
+}
+#datepicker .body ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #929292;
+}
+#datepicker .apply {
+  margin: 5px;
+  background-color: #1FAC97;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  width: calc(100% - 10px);
+  line-height: 35px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+#datepicker .apply:active {
+  transform: scale(0.95);
+}
+
+/*# sourceMappingURL=datepicker.css.map */
