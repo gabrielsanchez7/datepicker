@@ -60,19 +60,16 @@ $transition: 0.25s;
 			justify-content: space-between;
 			font-size: 12px;
 			color: $gray;
+			li {
+				text-align: center;
+				display: block;
+				line-height: 30px;
+				width: 30px;
+				border-radius: 50%;
+				transition: $transition;
+				cursor: pointer;
+				&:hover { background-color: rgba(0, 0, 0, 0.05); }
+			}
 		}
-	}
-	.apply {
-		margin: 5px;
-		background-color: $skyblue;
-		color: #fff;
-		font-size: 14px;
-		text-align: center;
-		width: calc(100% - 10px);
-		line-height: 35px;
-		border-radius: 3px;
-		cursor: pointer;
-		transition: $transition;
-		&:active { transform: scale(0.95); }
 	}
 }
