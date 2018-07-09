@@ -1,5 +1,5 @@
 /*Variables*/
-$textColor: #333;
+$textColor: #484848;
 $skyblue: #1FAC97;
 $skyblueHover: #187769;
 $whiteHover: #e6e6e6;
@@ -28,7 +28,7 @@ $transition: 0.25s;
 		align-items: center;
 		font-weight: 300;
 		background-color: $skyblue;
-		padding: 5px;
+		padding: 10px 5px;
 		span, i {
 			color: #fff;
 			line-height: 30px;
@@ -49,11 +49,17 @@ $transition: 0.25s;
 			width: 28px;
 			text-align: center;
 			border-radius: 50%;
+			&.disabled {
+				opacity: 0;
+				cursor: default;
+				&:hover { background-color: transparent; }
+			}
 			&:hover { background-color: rgba(255, 255, 255, 0.2); }
 		}
 	}
 	.body {
 		padding: 10px 15px;
+		position: relative;
 		ul {
 			list-style: none;
 			display: flex;
@@ -65,10 +71,52 @@ $transition: 0.25s;
 				display: block;
 				line-height: 30px;
 				width: 30px;
+				cursor: default;
+			}
+		}
+		.num-days {
+			li {
+				color: $textColor;
+				cursor: pointer;
 				border-radius: 50%;
 				transition: $transition;
-				cursor: pointer;
 				&:hover { background-color: rgba(0, 0, 0, 0.05); }
+				&.active {
+					color: $skyblue;
+					font-weight: 700;
+					background-color: rgba(0, 0, 0, 0.05);
+				}
+			}
+		}
+		.months, .years {
+			display: none;
+			flex-wrap: wrap;
+			li {
+				width: calc(100% / 4);
+				height: 60px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				span {
+					line-height: 45px;
+					display: block;
+					width: 45px;
+					text-align: center;
+					border-radius: 50%;
+					cursor: pointer;
+					color: $textColor;
+					&:hover { background-color: rgba(0, 0, 0, 0.05); }
+				}
+			}
+		}
+		.years {
+			display: none;
+			max-height: 180px;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			&::-webkit-scrollbar { width: 3px; }
+			&::-webkit-scrollbar-thumb {
+				background-color: lightgray;
 			}
 		}
 	}

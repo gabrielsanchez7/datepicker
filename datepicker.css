@@ -2,16 +2,27 @@
 * { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
 
 #datepicker { border-radius: 5px; overflow: hidden; max-width: 320px; width: 100%; box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15); }
-#datepicker .header { display: flex; justify-content: space-between; align-items: center; font-weight: 300; background-color: #1FAC97; padding: 5px; }
+#datepicker .header { display: flex; justify-content: space-between; align-items: center; font-weight: 300; background-color: #1FAC97; padding: 10px 5px; }
 #datepicker .header span, #datepicker .header i { color: #fff; line-height: 30px; cursor: pointer; transition: 0.25s; }
 #datepicker .header span:active, #datepicker .header i:active { transform: scale(0.95); }
 #datepicker .header span { width: 70%; text-align: center; border-radius: 15px; font-size: 14px; }
 #datepicker .header span:hover { background-color: rgba(255, 255, 255, 0.2); }
 #datepicker .header i { display: block; line-height: 28px; width: 28px; text-align: center; border-radius: 50%; }
+#datepicker .header i.disabled { opacity: 0; cursor: default; }
+#datepicker .header i.disabled:hover { background-color: transparent; }
 #datepicker .header i:hover { background-color: rgba(255, 255, 255, 0.2); }
-#datepicker .body { padding: 10px 15px; }
+#datepicker .body { padding: 10px 15px; position: relative; }
 #datepicker .body ul { list-style: none; display: flex; justify-content: space-between; font-size: 12px; color: #929292; }
-#datepicker .body ul li { text-align: center; display: block; line-height: 30px; width: 30px; border-radius: 50%; transition: 0.25s; cursor: pointer; }
-#datepicker .body ul li:hover { background-color: rgba(0, 0, 0, 0.05); }
+#datepicker .body ul li { text-align: center; display: block; line-height: 30px; width: 30px; cursor: default; }
+#datepicker .body .num-days li { color: #484848; cursor: pointer; border-radius: 50%; transition: 0.25s; }
+#datepicker .body .num-days li:hover { background-color: rgba(0, 0, 0, 0.05); }
+#datepicker .body .num-days li.active { color: #1FAC97; font-weight: 700; background-color: rgba(0, 0, 0, 0.05); }
+#datepicker .body .months, #datepicker .body .years { display: none; flex-wrap: wrap; }
+#datepicker .body .months li, #datepicker .body .years li { width: calc(100% / 4); height: 60px; display: flex; justify-content: center; align-items: center; }
+#datepicker .body .months li span, #datepicker .body .years li span { line-height: 45px; display: block; width: 45px; text-align: center; border-radius: 50%; cursor: pointer; color: #484848; }
+#datepicker .body .months li span:hover, #datepicker .body .years li span:hover { background-color: rgba(0, 0, 0, 0.05); }
+#datepicker .body .years { display: none; max-height: 180px; overflow-y: scroll; overflow-x: hidden; }
+#datepicker .body .years::-webkit-scrollbar { width: 3px; }
+#datepicker .body .years::-webkit-scrollbar-thumb { background-color: lightgray; }
 
 /*# sourceMappingURL=datepicker.css.map */
