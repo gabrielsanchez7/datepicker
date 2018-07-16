@@ -10,6 +10,8 @@ var typeCalendar = 'days';
 		var object = this;
 		$(this).click(function(){
 			initDatepicker(object, globalDate);
+			updateDatepicker(object, globalDate);
+			pickDate(object, globalDate);
 		});
 	}
 })(jQuery);
@@ -21,7 +23,7 @@ function initDatepicker(element, date){
 		<div id="datepicker">
 			<div class="header">
 				<i class="fas fa-angle-left" id="prev-month"></i>
-				<span class="current-date" id="change-type"></span>
+				<span class="current-date" id="change-type">${months[date.getMonth()]} de ${date.getFullYear()}</span>
 				<i class="fas fa-angle-right" id="next-month"></i>
 			</div>
 			<div class="body">
@@ -34,6 +36,7 @@ function initDatepicker(element, date){
 	`;
 	
 	$(element).after(html);
+	$('#datepicker').fadeIn('fast');
 	$.each(days, function(index, value){
 		$('#datepicker .letter-days').append('<li>' + value + '</li>');
 	});
@@ -45,19 +48,6 @@ function initDatepicker(element, date){
 	for(var i = globalDate.getFullYear() - 100; i <= globalDate.getFullYear() + 100; i++){
 		$('#datepicker .years').append('<li class="select-year" data-year="' + i + '"><span>' + i + '</span></li>')
 	};
-	
-	updateDatepicker(element, date);
-	
-	var month = date.getMonth();
-	$('#next-month').click(function(){
-		month++;
-		updateDatepicker(element, new Date(date.getFullYear(), month, globalDate.getDate()));
-	});
-	$('#prev-month').click(function(){
-		month--;
-		updateDatepicker(element, new Date(date.getFullYear(), month, globalDate.getDate()));
-	});
-	
 }
 
 function updateDatepicker(element, date){
@@ -83,7 +73,12 @@ function updateDatepicker(element, date){
 	};
 	
 	$('.num-days').empty();
-	$('.current-date').html(months[date.getMonth()] + ' de ' + date.getFullYear());
+	if(typeCalendar == 'days'){
+		$('.current-date').html(months[date.getMonth()] + ' de ' + date.getFullYear());
+	}
+	else if(typeCalendar == 'months'){
+		$('.current-date').html(date.getFullYear());
+	}
 	
 	var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 	firstDay = (firstDay.getDay() != 0) ? firstDay.getDay() : 7;
@@ -119,7 +114,9 @@ function updateDatepicker(element, date){
 	if(date.getMonth() == globalDate.getMonth()){
 		$('.num-days').find('li[data-day="' + date.getDate() + '"]').addClass('active');
 	}
-	
+}
+
+function pickDate(element, date){
 	$('#change-type').click(function(){
 		if(typeCalendar == 'days'){
 			typeCalendar = 'months';
@@ -138,31 +135,61 @@ function updateDatepicker(element, date){
 			});
 		}
 	});
-	
-	$('.select-year').click(function(){
+
+	$('#next-month').click(function(){
+		if(typeCalendar == 'days'){
+			date.setMonth(date.getMonth() + 1);
+			updateDatepicker(element, new Date(date.getFullYear(), date.getMonth(), globalDate.getDate()));
+		}
+		else if(typeCalendar == 'months'){
+			date.setFullYear(date.getFullYear() + 1);
+			updateDatepicker(element, new Date(date.getFullYear(), date.getMonth(), globalDate.getDate()));
+		}
+	});
+	$('#prev-month').click(function(){
+		if(typeCalendar == 'days'){
+			date.setMonth(date.getMonth() - 1);
+			updateDatepicker(element, new Date(date.getFullYear(), date.getMonth(), globalDate.getDate()));
+		}
+		else if(typeCalendar == 'months'){
+			date.setFullYear(date.getFullYear() - 1);
+			updateDatepicker(element, new Date(date.getFullYear(), date.getMonth(), globalDate.getDate()));
+		}
+	});
+
+	$('body').on('click', '.select-year', function(){
 		var year = this;
+		typeCalendar = 'months';
 		date.setFullYear($(year).attr('data-year'))
 		$('.years').fadeOut(function(){
 			$('.months').fadeIn().css('display', 'flex');
 			$('.current-date').html($(year).attr('data-year'));
+			$('#next-month, #prev-month').removeClass('disabled');
 		});
+		updateDatepicker(element, new Date(date.getFullYear(), date.getMonth(), 1));
 	});
 
-	$('.select-month').click(function(){
+	$('body').on('click', '.select-month', function(){
 		var month = this;
+		typeCalendar = 'days';
 		date.setMonth($(month).attr('data-month'));
 		$('.months').fadeOut(function(){
 			$('.letter-days, .num-days').fadeIn();
 			$('.letter-days').css('display', 'flex');
 			$('.current-date').html(months[date.getMonth()] + ' de ' + date.getFullYear());
 		});
+		updateDatepicker(element, new Date(date.getFullYear(), date.getMonth(), 1));
 	});
 
-	$('.select-day').click(function(){
+	$('body').on('click', '.select-day', function(){
 		date.setDate($(this).attr('data-day'));
 		$(element).val(
 			((date.getDate().toString().length == 1) ? "0" + date.getDate() : date.getDate()) + "/" +
 			((date.getMonth().toString().length == 1) ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)) + "/" +
 			date.getFullYear());
+		updateDatepicker(element, new Date(date.getFullYear(), date.getMonth(), 1));
+		$('#datepicker').fadeOut('fast', function(){
+			$(this).remove();	
+		});
 	});
 }
